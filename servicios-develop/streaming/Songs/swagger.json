@@ -1,0 +1,716 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Create Streaming micro-service",
+        "title": "Streaming-Songs",
+        "contact": {
+            "name": "Gerson Beltetón",
+            "email": "gersonbelur@gmail.com"
+        }
+    },
+    "schemes": [
+        "http"
+    ],
+    "host": "localhost:3001",
+    "basePath": "/",
+    "paths": {
+        "/createSong": {
+            "name": "CrearCancion",
+            "post": {
+                "summary": "Guardar informacion de una cancion en la BD",
+                "description": "Almacena en MYSQL los valores de cancion enviados",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "createSong",
+                        "description": "parametros de la cancion a guardar",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "name": "cancion2",
+                                "album_id": 1,
+                                "file": "base64 de archivo mp3",
+                                "cover_image": "base64 de imagen"
+                            }
+                        },
+                        "required": true,
+                        "default": "{}"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "La cancion fue creada correctamente",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "mensaje": "Cancion creada correctamente",
+                                "status": true
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Hizo falta el dato de cancion para finalizar la peticion",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "mensaje": "Error en el servidor. Contacte con el administrador.",
+                                "status": false
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/getOneSong/{id}": {
+            "name": "Obtener Cancion",
+            "get": {
+                "summary": "Obtener una cancion de la BD",
+                "descripction": "Obtiene la informacion de una cancion desde la bd",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "ID de la cancion a retornar",
+                        "required": true,
+                        "type": "string",
+                        "example": "1",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Si la peticion fue correcta y se encontro el valor",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "status": true,
+                                "song": {
+                                    "id": 7,
+                                    "name": "mojado",
+                                    "album": {
+                                        "id": 1,
+                                        "name": "lo mejor de arjona",
+                                        "artist": "RICARDO ARJONA",
+                                        "cover_image": "aqui va url de google cloud"
+                                    },
+                                    "file": "aqui va url de google cloud",
+                                    "cover_image": "https://storage.googleapis.com/ayd2_bucket/cancion2.jpg"
+                                }
+                            },
+                            "default": "OK"
+                        }
+                    },
+                    "404": {
+                        "description": "La cancion no fue encontrado en la BD",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "mensaje": "'Error en el servidor. Contacte con el administrador.'",
+                                "correcto": false
+                            },
+                            "default": "NOT FOUND"
+                        }
+                    }
+                }
+            }
+        },
+        "/getSongs": {
+            "name": "Obtener canciones",
+            "get": {
+                "summary": "Obtener todas las canciones de la BD",
+                "descripction": "Obtiene la informacion de todas las canciones desde la bd",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Si la peticion fue correcta y se encontro el valor",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "status": true,
+                                "songs": [
+                                    {
+                                        "id": 1,
+                                        "name": "el amor",
+                                        "album_id": 1,
+                                        "file": "aqui va url de google cloud",
+                                        "cover_image": "aqui va url de google cloud"
+                                    },
+                                    {
+                                        "id": 2,
+                                        "name": "mojado",
+                                        "album_id": 1,
+                                        "file": "aqui va url de google cloud",
+                                        "cover_image": "aqui va url de google cloud"
+                                    },
+                                    {
+                                        "id": 3,
+                                        "name": "mojado",
+                                        "album_id": 1,
+                                        "file": "aqui va url de google cloud",
+                                        "cover_image": "undefined"
+                                    },
+                                    {
+                                        "id": 4,
+                                        "name": "mojado",
+                                        "album_id": 1,
+                                        "file": "aqui va url de google cloud",
+                                        "cover_image": "undefined"
+                                    },
+                                    {
+                                        "id": 5,
+                                        "name": "mojado",
+                                        "album_id": 1,
+                                        "file": "aqui va url de google cloud",
+                                        "cover_image": "undefined"
+                                    },
+                                    {
+                                        "id": 6,
+                                        "name": "mojado",
+                                        "album_id": 1,
+                                        "file": "aqui va url de google cloud",
+                                        "cover_image": "undefined"
+                                    },
+                                    {
+                                        "id": 7,
+                                        "name": "mojado",
+                                        "album_id": 1,
+                                        "file": "aqui va url de google cloud",
+                                        "cover_image": "https://storage.googleapis.com/ayd2_bucket/cancion2.jpg"
+                                    },
+                                    {
+                                        "id": 9,
+                                        "name": "mojado",
+                                        "album_id": 1,
+                                        "file": "https://storage.googleapis.com/ayd2_bucket/songs/mojado.mp3",
+                                        "cover_image": "https://storage.googleapis.com/ayd2_bucket/song_cover_image/mojado.jpg"
+                                    }
+                                ]
+                            },
+                            "default": "OK"
+                        }
+                    },
+                    "404": {
+                        "description": "La cancion no fue encontrado en la BD",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "mensaje": "'Error en el servidor. Contacte con el administrador.'",
+                                "correcto": false
+                            },
+                            "default": "NOT FOUND"
+                        }
+                    }
+                }
+            }
+        },
+        "/getSongsByAlbum{id}": {
+            "name": "getSongsByAlgum",
+            "get": {
+                "summary": "Obtener canciones de un album especifico de la BD",
+                "descripction": "Obtiene la informacion de las canciones pertenecientes a un album desde la bd",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "ID del album del cual se quiere obtener sus canciones",
+                        "required": true,
+                        "type": "string",
+                        "example": "1",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Si la peticion fue correcta y se encontro el valor",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "status": true,
+                                "album": [
+                                    {
+                                        "id": 1,
+                                        "name": "el amor",
+                                        "album_id": 1,
+                                        "file": "aqui va url de google cloud",
+                                        "cover_image": "aqui va url de google cloud"
+                                    },
+                                    {
+                                        "id": 2,
+                                        "name": "mojado",
+                                        "album_id": 1,
+                                        "file": "aqui va url de google cloud",
+                                        "cover_image": "aqui va url de google cloud"
+                                    }
+                                ]
+                            },
+                            "default": "OK"
+                        }
+                    },
+                    "404": {
+                        "description": "El album no fue encontrado en la BD",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "mensaje": "'Error en el servidor. Contacte con el administrador.'",
+                                "correcto": false
+                            },
+                            "default": "NOT FOUND"
+                        }
+                    }
+                }
+            }
+        },
+        "/deleteSong/{id}": {
+            "name": "Eliminar Cancion",
+            "delete": {
+                "summary": "Eliminar una cancion de la BD",
+                "descripction": "Elimina una cancion desde la bd",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "ID de la cancion a eliminar",
+                        "required": true,
+                        "type": "string",
+                        "example": "1",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "La cancion fue eliminada correctamente",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "mensaje": "Cancion eliminada correctamente",
+                                "status": true
+                            },
+                            "default": "OK"
+                        }
+                    },
+                    "404": {
+                        "description": "error al eliminar cancion de  la BD",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "mensaje": "'Error en el servidor. Contacte con el administrador.'",
+                                "correcto": false
+                            },
+                            "default": "NOT FOUND"
+                        }
+                    }
+                }
+            }
+        },
+        "/updateSong/{id}": {
+            "name": "ActualizarCancion",
+            "put": {
+                "summary": "Actualizar informacion de una cancion en la BD",
+                "description": "Almacena en MYSQL los valores de cancion enviados",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "updateSong",
+                        "description": "parametros de la cancion a actualizar",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "name": "nombre de cancion",
+                                "album_id": 1,
+                                "file":"base 64 de archivo mp3",
+                                "cover_image": "base64 de imagen"
+                            }
+                        },
+                        "required": true,
+                        "default": "{}"
+                    },
+                    {
+                        "name": "id",
+                        "description": "ID de la cancion a actualizar",
+                        "required": true,
+                        "type": "string",
+                        "example": "1",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "La cancion fue actualizada correctamente",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "mensaje": "Cancion actualizada correctamente",
+                                "status": true
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Hizo falta el dato de cancion para finalizar la peticion",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "mensaje": "Error en el servidor. Contacte con el administrador.",
+                                "status": false
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/favoriteSong": {
+            "name": "GuardarEnFavoritos",
+            "post": {
+                "summary": "Guardar o Eliminar una cancion de favoritos",
+                "description": "Almacena en MYSQL los valores de cancion enviados",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "x-auth-token",
+                        "description": "Token JWT",
+                        "required": true,
+                        "type": "string",
+                        "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+                        "in": "header"
+                    },
+                    {
+                        "in": "body",
+                        "name": "favoriteSong",
+                        "description": "id de la cancion a guardar",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "song_id": 1
+                            }
+                        },
+                        "required": true,
+                        "default": "{}"
+                    },
+                    {
+                        "name": "id",
+                        "description": "ID de la cancion a actualizar",
+                        "required": true,
+                        "type": "string",
+                        "example": "1",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "La cancion fue guardada/eliminada en favoritos correctamente",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "status": true,
+                                "favorite": 1,
+                                "mensaje": "cancion guardada en favoritos correctamente"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error al guardar/eliminar cancion en favoritos",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "mensaje": "Error al guardar/eliminar cancion en favoritos",
+                                "status": false
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/onRepeat": {
+            "name": "getOnRepeat",
+            "get": {
+                "summary": "Devuelve las cancionas mas reproducidas",
+                "description": "Obtiene las canciones mas reproducidas del usuario",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "x-auth-token",
+                        "description": "Token JWT",
+                        "required": true,
+                        "type": "string",
+                        "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "La cancion devueltas correctamente",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "status": true,
+                                "onRepeat": [
+                                    {
+                                        "id": 7,
+                                        "name": "Crash",
+                                        "album_id": 4,
+                                        "file": "https://storage.googleapis.com/ayd2_bucket/songs/Crash%20%20%20Sum%2041%20%20%20Screaming%20Bloody%20Murder%20www.dilandau.eu.mp3",
+                                        "cover_image": "https://storage.googleapis.com/ayd2_bucket/song_cover_image/sum41%20crash.jpg",
+                                        "count": 15
+                                    },
+                                    {
+                                        "id": 1,
+                                        "name": "Youre Beautiful",
+                                        "album_id": 1,
+                                        "file": "https://storage.googleapis.com/ayd2_bucket/songs/01.You're%20Beautiful%20%20%20James%20Blunt%20%20%20You%20Are%20Beautiful%20%E7%BE%8E%E4%B8%BD%E7%9A%84%E4%BD%A0%20www.dilandau.eu.mp3",
+                                        "cover_image": "https://storage.googleapis.com/ayd2_bucket/song_cover_image/youre%20beautiful%20james%20blunt.jpg",
+                                        "count": 13
+                                    },
+                                    {
+                                        "id": 2,
+                                        "name": "I Dont love you",
+                                        "album_id": 2,
+                                        "file": "https://storage.googleapis.com/ayd2_bucket/songs/06-my_chemical_romance-i_dont_love_you.mp3",
+                                        "cover_image": "https://storage.googleapis.com/ayd2_bucket/song_cover_image/i%20dont%20love%20you%20MCR.jpg",
+                                        "count": 13
+                                    },
+                                    {
+                                        "id": 17,
+                                        "name": "The reason",
+                                        "album_id": 9,
+                                        "file": "https://storage.googleapis.com/ayd2_bucket/songs/Hoobastank%20-%20The%20Reason%20(1).mp3",
+                                        "cover_image": "https://storage.googleapis.com/ayd2_bucket/song_cover_image/hoobastank%20the%20reason.jpg",
+                                        "count": 12
+                                    },
+                                    {
+                                        "id": 6,
+                                        "name": "Best of me",
+                                        "album_id": 4,
+                                        "file": "https://storage.googleapis.com/ayd2_bucket/songs/12%20%20%20Sum%2041%20%20%20Best%20Of%20Me%20www.dilandau.eu.mp3",
+                                        "cover_image": "https://storage.googleapis.com/ayd2_bucket/song_cover_image/Sum41%20best%20of%20me.jpg",
+                                        "count": 10
+                                    },
+                                    {
+                                        "id": 5,
+                                        "name": "Boulevard of broken dreams",
+                                        "album_id": 3,
+                                        "file": "https://storage.googleapis.com/ayd2_bucket/songs/Green%20Day%20-%20Boulevard%20of%20Broken%20Dreams.mp3",
+                                        "cover_image": "https://storage.googleapis.com/ayd2_bucket/song_cover_image/green%20day%20boulevar%20of%20broken%20dreams.jpg",
+                                        "count": 8
+                                    },
+                                    {
+                                        "id": 14,
+                                        "name": "Every body is changing",
+                                        "album_id": 8,
+                                        "file": "https://storage.googleapis.com/ayd2_bucket/songs/everybody%20s%20changing-%20keane.mp3",
+                                        "cover_image": "https://storage.googleapis.com/ayd2_bucket/song_cover_image/Keane%20every%20body%20is%20changing.jpg",
+                                        "count": 8
+                                    },
+                                    {
+                                        "id": 11,
+                                        "name": "Creep",
+                                        "album_id": 7,
+                                        "file": "https://storage.googleapis.com/ayd2_bucket/songs/Creep%20%20%20Radiohead%20www.dilandau.eu.mp3",
+                                        "cover_image": "https://storage.googleapis.com/ayd2_bucket/song_cover_image/radiohead%20creep.jpg",
+                                        "count": 8
+                                    },
+                                    {
+                                        "id": 12,
+                                        "name": "Letdown",
+                                        "album_id": 7,
+                                        "file": "https://storage.googleapis.com/ayd2_bucket/songs/Radiohead%20-%20Let%20Down.mp3",
+                                        "cover_image": "https://storage.googleapis.com/ayd2_bucket/song_cover_image/radiohead%20letdown.jpg",
+                                        "count": 8
+                                    },
+                                    {
+                                        "id": 4,
+                                        "name": "Wake me up when september ends",
+                                        "album_id": 3,
+                                        "file": "https://storage.googleapis.com/ayd2_bucket/songs/11%20Wake%20me%20up%20when%20September%20Ends.MP3",
+                                        "cover_image": "https://storage.googleapis.com/ayd2_bucket/song_cover_image/green%20day%20wake%20me%20up%20when%20september%20ends.jpg",
+                                        "count": 8
+                                    },
+                                    {
+                                        "id": 3,
+                                        "name": "Disenchanted",
+                                        "album_id": 2,
+                                        "file": "https://storage.googleapis.com/ayd2_bucket/songs/Disenchanted%20%20%20My%20chemical%20romance%20www.dilandau.eu.mp3",
+                                        "cover_image": "https://storage.googleapis.com/ayd2_bucket/song_cover_image/MCR%20disenchanted.jpg",
+                                        "count": 8
+                                    },
+                                    {
+                                        "id": 16,
+                                        "name": "Fly to me",
+                                        "album_id": 8,
+                                        "file": "https://storage.googleapis.com/ayd2_bucket/songs/keane%20-%20Fly%20to%20me%20(sub.%20espa%C3%B1ol).mp3",
+                                        "cover_image": "https://storage.googleapis.com/ayd2_bucket/song_cover_image/keane%20fly%20to%20me.jpg",
+                                        "count": 7
+                                    },
+                                    {
+                                        "id": 10,
+                                        "name": "Sing me to sleep",
+                                        "album_id": 6,
+                                        "file": "https://storage.googleapis.com/ayd2_bucket/songs/Alan%20Walker%20-%20Sing%20me%20to%20sleep.mp3",
+                                        "cover_image": "https://storage.googleapis.com/ayd2_bucket/song_cover_image/Alan%20walker%20sing%20me%20to%20sleep.jpg",
+                                        "count": 6
+                                    },
+                                    {
+                                        "id": 8,
+                                        "name": "Alibi",
+                                        "album_id": 5,
+                                        "file": "https://storage.googleapis.com/ayd2_bucket/songs/30%20Seconds%20to%20Mars%20-%20Alibi.mp3",
+                                        "cover_image": "https://storage.googleapis.com/ayd2_bucket/song_cover_image/30%20seconds%20to%20mars%20alibi.jpg",
+                                        "count": 5
+                                    },
+                                    {
+                                        "id": 15,
+                                        "name": "Love is the end",
+                                        "album_id": 8,
+                                        "file": "https://storage.googleapis.com/ayd2_bucket/songs/Keane%20-%20Love%20Is%20The%20End.mp3",
+                                        "cover_image": "https://storage.googleapis.com/ayd2_bucket/song_cover_image/keane%20love%20is%20the%20end.jpg",
+                                        "count": 5
+                                    },
+                                    {
+                                        "id": 13,
+                                        "name": "Street Spirit",
+                                        "album_id": 7,
+                                        "file": "https://storage.googleapis.com/ayd2_bucket/songs/Radiohead%20-%20Street%20Spirit%20(Fade%20Out).mp3",
+                                        "cover_image": "https://storage.googleapis.com/ayd2_bucket/song_cover_image/radiohead%20street%20spirit.jpg",
+                                        "count": 4
+                                    },
+                                    {
+                                        "id": 9,
+                                        "name": "Faded",
+                                        "album_id": 6,
+                                        "file": "https://storage.googleapis.com/ayd2_bucket/songs/Alan%20Walker%20-%20Faded%20(Sub%20Espa%C3%B1ol).mp3",
+                                        "cover_image": "https://storage.googleapis.com/ayd2_bucket/song_cover_image/Alan%20walker%20faded.jpg",
+                                        "count": 3
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error al obtener las canciones",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "mensaje": "Error en el Servidor",
+                                "correcto": false
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/getFavorites": {
+            "name": "getFavoriteSongs",
+            "get": {
+                "summary": "Devuelve las cancionas favoritas",
+                "description": "Obtiene las canciones favoritas del usuario",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "x-auth-token",
+                        "description": "Token JWT",
+                        "required": true,
+                        "type": "string",
+                        "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "La canciones favoritas fueron devueltas correctamente",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "status": true,
+                                "favoritas": [
+                                    {
+                                        "id": 1,
+                                        "name": "Youre Beautiful",
+                                        "album_id": 1,
+                                        "file": "https://storage.googleapis.com/ayd2_bucket/songs/01.You're%20Beautiful%20%20%20James%20Blunt%20%20%20You%20Are%20Beautiful%20%E7%BE%8E%E4%B8%BD%E7%9A%84%E4%BD%A0%20www.dilandau.eu.mp3",
+                                        "cover_image": "https://storage.googleapis.com/ayd2_bucket/song_cover_image/youre%20beautiful%20james%20blunt.jpg"
+                                    },
+                                    {
+                                        "id": 3,
+                                        "name": "Disenchanted",
+                                        "album_id": 2,
+                                        "file": "https://storage.googleapis.com/ayd2_bucket/songs/Disenchanted%20%20%20My%20chemical%20romance%20www.dilandau.eu.mp3",
+                                        "cover_image": "https://storage.googleapis.com/ayd2_bucket/song_cover_image/MCR%20disenchanted.jpg"
+                                    },
+                                    {
+                                        "id": 5,
+                                        "name": "Boulevard of broken dreams",
+                                        "album_id": 3,
+                                        "file": "https://storage.googleapis.com/ayd2_bucket/songs/Green%20Day%20-%20Boulevard%20of%20Broken%20Dreams.mp3",
+                                        "cover_image": "https://storage.googleapis.com/ayd2_bucket/song_cover_image/green%20day%20boulevar%20of%20broken%20dreams.jpg"
+                                    },
+                                    {
+                                        "id": 12,
+                                        "name": "Letdown",
+                                        "album_id": 7,
+                                        "file": "https://storage.googleapis.com/ayd2_bucket/songs/Radiohead%20-%20Let%20Down.mp3",
+                                        "cover_image": "https://storage.googleapis.com/ayd2_bucket/song_cover_image/radiohead%20letdown.jpg"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error al obtener las canciones favoritas",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "mensaje": "Error en el Servidor",
+                                "correcto": false
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

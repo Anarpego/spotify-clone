@@ -1,0 +1,8 @@
+*.spec.js
+*.md
+*.json
+Dockerfile
+*.yml
+*.yaml
+*.logs
+**/coverage/

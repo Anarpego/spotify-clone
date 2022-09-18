@@ -1,0 +1,42 @@
+http:
+  port: 3005
+admin:
+  port: 9876
+  host: localhost
+apiEndpoints:
+  albumApi:
+    paths: ['/album','/album/*']
+    methods: ['POST','GET','PUT','DELETE']
+  songApi:
+    paths: ['/song','/song/*']
+    methods: ['POST','GET','PUT','DELETE']
+serviceEndpoints:
+  albumService:
+    url: 'http://localhost:3002/'
+  songService: 
+    url: 'http://localhost:3001/'
+policies:
+  - cors
+  - expression
+  - proxy
+  - rate-limit
+pipelines:
+  albumPipeline:
+    apiEndpoints:
+      - albumApi
+    policies:
+      - proxy:
+        - action:
+            serviceEndpoint: albumService
+            changeOrigin: true
+            stripPath: true
+  songPipeline:
+    apiEndpoints:
+      - songApi
+    policies:
+      - proxy:
+        - action:
+            serviceEndpoint: songService
+            changeOrigin: true
+            stripPath: true
+

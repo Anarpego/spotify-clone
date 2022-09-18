@@ -1,0 +1,475 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Create Streaming micro-service",
+        "title": "Streaming-Albums",
+        "contact": {
+            "name": "Gerson Beltetón",
+            "email": "gersonbelur@gmail.com"
+        }
+    },
+    "schemes": [
+        "http"
+    ],
+    "host": "localhost:3002",
+    "basePath": "/",
+    "paths": {
+        "/createArtist": {
+            "name": "CrearArtista",
+            "post": {
+                "summary": "Guardar informacion de un artista en la BD",
+                "description": "Almacena en MYSQL los valores de artista enviados",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "createArtist",
+                        "description": "parametros del artista a guardar",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "artist": "nombre_artista"
+                            }
+                        },
+                        "required": true,
+                        "default": "{}"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "El artista fue creado correctamente",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "mensaje": "Artista creado correctamente",
+                                "status": true
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Hizo falta el dato de artista para finalizar la peticion",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "mensaje": "Error en el servidor. Contacte con el administrador.",
+                                "status": false
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/createAlbum": {
+            "name": "CrearAlbum",
+            "post": {
+                "summary": "Guardar informacion de un album en la BD",
+                "description": "Almacena en MYSQL los valores de album enviados",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "createAlbum",
+                        "description": "parametros del album a guardar",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "name": "album de arjona 2",
+                                "artist_id": 1,
+                                "cover_image": "base64 de imagen"
+                            }
+                        },
+                        "required": true,
+                        "default": "{}"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "El album fue creado correctamente",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "mensaje": "Album creado correctamente",
+                                "status": true
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Hizo falta el dato de album para finalizar la peticion",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "mensaje": "Error en el servidor. Contacte con el administrador.",
+                                "status": false
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        
+        "/getOneArtist/{id}": {
+            "name": "Obtener Artista",
+            "get": {
+                "summary": "Obtener un artista de la BD",
+                "descripction": "Obtiene la informacion de un artista desde la bd",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "ID del artista a retornar",
+                        "required": true,
+                        "type": "string",
+                        "example": "1",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Si la peticion fue correcta y se encontro el valor",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "status": true,
+                                "artist": {
+                                    "id": 1,
+                                    "artist": "RICARDO ARJONA"
+                                }
+                            },
+                            "default": "OK"
+                        }
+                    },
+                    "404": {
+                        "description": "El artista no fue encontrado en la BD",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "mensaje": "'Error en el servidor. Contacte con el administrador.'",
+                                "correcto": false
+                            },
+                            "default": "NOT FOUND"
+                        }
+                    }
+                }
+            }
+        },
+        "/getArtists": {
+            "name": "Obtener Artistas",
+            "get": {
+                "summary": "Obtener todos los artistas de la BD",
+                "descripction": "Obtiene la informacion de un artista desde la bd",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Si la peticion fue correcta y se encontro el valor",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "status": true,
+                                "artists": [
+                                    {
+                                        "id": 1,
+                                        "artist": "RICARDO ARJONA"
+                                    },
+                                    {
+                                        "id": 3,
+                                        "artist": "jorge"
+                                    }
+                                ]
+                            },
+                            "default": "OK"
+                        }
+                    },
+                    "404": {
+                        "description": "El artista no fue encontrado en la BD",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "mensaje": "'Error en el servidor. Contacte con el administrador.'",
+                                "correcto": false
+                            },
+                            "default": "NOT FOUND"
+                        }
+                    }
+                }
+            }
+        },
+        "/getOneAlbum/{id}": {
+            "name": "Obtener Album",
+            "get": {
+                "summary": "Obtener un album de la BD",
+                "descripction": "Obtiene la informacion de un album desde la bd",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "ID del album a retornar",
+                        "required": true,
+                        "type": "string",
+                        "example": "1",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Si la peticion fue correcta y se encontro el valor",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "status": true,
+                                "album": {
+                                    "id": 3,
+                                    "name": "album de arjona",
+                                    "artist": "RICARDO ARJONA",
+                                    "cover_image": "https://storage.googleapis.com/ayd2_bucket/album_cover_image/album de arjona.jpg"
+                                }
+                            },
+                            "default": "OK"
+                        }
+                    },
+                    "404": {
+                        "description": "El album no fue encontrado en la BD",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "mensaje": "'Error en el servidor. Contacte con el administrador.'",
+                                "correcto": false
+                            },
+                            "default": "NOT FOUND"
+                        }
+                    }
+                }
+            }
+        },
+        "/getAlbums": {
+            "name": "Obtener Albums",
+            "get": {
+                "summary": "Obtener todos los album de la BD",
+                "descripction": "Obtiene la informacion de todos los albums desde la bd",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Si la peticion fue correcta y se encontro el valor",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "status": true,
+                                "albums": [
+                                    {
+                                        "id": 1,
+                                        "name": "nombre de album",
+                                        "artist_id": 1,
+                                        "cover_image": "aqui va url de google cloud"
+                                    },
+                                    {
+                                        "id": 3,
+                                        "name": "album de arjona",
+                                        "artist_id": 1,
+                                        "cover_image": "https://storage.googleapis.com/ayd2_bucket/album_cover_image/album de arjona.jpg"
+                                    }
+                                ]
+                            },
+                            "default": "OK"
+                        }
+                    },
+                    "404": {
+                        "description": "El album no fue encontrado en la BD",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "mensaje": "'Error en el servidor. Contacte con el administrador.'",
+                                "correcto": false
+                            },
+                            "default": "NOT FOUND"
+                        }
+                    }
+                }
+            }
+        },
+        
+        "/deleteArtist/{id}": {
+            "name": "Eliminar Artista",
+            "delete": {
+                "summary": "Eliminar un artista de la BD",
+                "descripction": "Elimina un artista desde la bd",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "ID del artista a eliminar",
+                        "required": true,
+                        "type": "string",
+                        "example": "1",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "El artista fue eliminado correctamente",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "mensaje": "Artista eliminado correctamente",
+                                "status": true
+                            },
+                            "default": "OK"
+                        }
+                    },
+                    "404": {
+                        "description": "error al eliminar artista de  la BD",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "mensaje": "'Error en el servidor. Contacte con el administrador.'",
+                                "correcto": false
+                            },
+                            "default": "NOT FOUND"
+                        }
+                    }
+                }
+            }
+        },
+        "/deleteAlbum/{id}": {
+            "name": "Eliminar Album",
+            "delete": {
+                "summary": "Eliminar un album de la BD",
+                "descripction": "Elimina un album desde la bd",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "ID del album a eliminar",
+                        "required": true,
+                        "type": "string",
+                        "example": "1",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "El album fue eliminado correctamente",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "mensaje": "Album eliminado correctamente",
+                                "status": true
+                            },
+                            "default": "OK"
+                        }
+                    },
+                    "404": {
+                        "description": "error al eliminar album de  la BD",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "mensaje": "'Error en el servidor. Contacte con el administrador.'",
+                                "correcto": false
+                            },
+                            "default": "NOT FOUND"
+                        }
+                    }
+                }
+            }
+        },
+        "/updateAlbum/{id}": {
+            "name": "ActualizarAlbum",
+            "put": {
+                "summary": "Actualizar informacion de un album en la BD",
+                "description": "Almacena en MYSQL los valores de album enviados",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "updateAlbum",
+                        "description": "parametros del album a actualizar",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "name": "nombre de album",
+                                "artist_id": 1,
+                                "cover_image": "base64 de imagen"
+                            }
+                        },
+                        "required": true,
+                        "default": "{}"
+                    },
+                    {
+                        "name": "id",
+                        "description": "ID del album a actualizar",
+                        "required": true,
+                        "type": "string",
+                        "example": "1",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "El album fue actualizado correctamente",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "mensaje": "Album actualizado correctamente",
+                                "status": true
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Hizo falta el dato de album para finalizar la peticion",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "mensaje": "Error en el servidor. Contacte con el administrador.",
+                                "status": false
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
+}
