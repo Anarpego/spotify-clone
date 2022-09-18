@@ -1,0 +1,16 @@
+import { render, screen } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
+import { App } from '../../App';
+import { LoginPage } from '../../pages/auth';
+import { AppRouter } from '../../routes/AppRouter';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
+
+describe('Tests in <LoginPage /> ', () => {
+
+
+	test('should change te value on textbox', () => {
+
+	});
+
+}); 
