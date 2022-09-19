@@ -3,9 +3,13 @@
 Desarrollo Web A - Jornada Domingo
 
 ---
-### Integrantes del grupo:
+## Integrantes del grupo:
+
 Anibal Pérez / 0910-18-20886
+
+
 José Tomín  / 0910-18-4339
+
 ---
 
 > Se espera un despligue con los servicios de Google Cloud Platform
