@@ -34,7 +34,7 @@ Hecho en react se desplegara en Google App Engine
 
 ## Backend - Anibal Pérez
 
-Actualmente hay un microservicio de streaming para la lectura de los álbumes  y las canciones con su respectivo gateway que en este caso se levanta gracias a npm y, se espera desplegar al finalizar los microservicios restantes en Google Kubernetes Engine.
+Actualmente hay un microservicio de streaming para la lectura de los álbumes  y las canciones con su respectivo gateway que en este caso se levanta gracias a npm. Se espera desplegar al finalizar los microservicios restantes en Google Kubernetes Engine.
 
 Cuando se despligue a kubernetes el gateway pasara a ser un ingress con el helm chart de Ingress-Nginx (https://artifacthub.io/packages/helm/ingress-nginx/ingress-nginx) que generara un load balancer y solo tendra una IP ya que servira como proxy inverso tomando todos nuestros servicios internos y exponiendolos.
 
