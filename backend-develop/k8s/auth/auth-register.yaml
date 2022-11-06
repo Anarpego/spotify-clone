@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: auth-register
+spec: 
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: auth-register
+  template: 
+    metadata:
+      labels:
+        app: auth-register
+    spec:
+      containers:
+      - name: auth-register-service
+        image: gcr.io/moonlit-bucksaw-347117/auth-register
+        ports:
+        - containerPort: 3012
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: auth-register
+  labels:
+    app: auth-register
+spec: 
+  ports:
+  - port: 3012
+    protocol: TCP
+  selector: 
+    app: auth-register

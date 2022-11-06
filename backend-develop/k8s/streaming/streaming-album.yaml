@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: streaming-album
+spec: 
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: streaming-album
+  template: 
+    metadata:
+      labels:
+        app: streaming-album
+    spec:
+      containers:
+      - name: streaming-album-service
+        image: [Imagen de gcp container registry]
+        ports:
+        - containerPort: 3002
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: streaming-album
+  labels:
+    app: streaming-album
+spec: 
+  ports:
+  - port: 3002
+    protocol: TCP
+  selector: 
+    app: streaming-album

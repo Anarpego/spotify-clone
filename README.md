@@ -38,7 +38,13 @@ Actualmente hay un microservicio de streaming para la lectura de los álbumes  y
 
 Cuando se despligue a kubernetes el gateway pasara a ser un ingress con el helm chart de Ingress-Nginx (https://artifacthub.io/packages/helm/ingress-nginx/ingress-nginx) que generara un load balancer y solo tendra una IP ya que servira como proxy inverso tomando todos nuestros servicios internos y exponiendolos.
 
-> Nota al ingeniero: Aun no se ha podido desplegar en GCP, pero no es un experimento. Esta app esta basada en un proyecto al que yo ya contribui, dockerice y desplegue aplicando pipelines de CI/CD.
+---
+
+¿ Por qué se esta desplegando la base de datos y no se usaron contenedores sidecar con cloud sql proxy? por temas de tiempo creimos que era mejor decisión hacer esto de desplegar la base de datos en kubernetes que no es considerada buena practica pero cumple su función como proyecto de universidad.
+
+En la carpeta backend se encuentran los yamls para la creacion de los servicios, se esta considerando usar ArgoCD para la creacion de todos los servicios y para el futuro bastion de Keycloack aunque keycloack todavia no esta implementado en nada.
+
+En el directorio Backend esta el Docker Compose para levantar toda la infraestructura del backend.
 
 
 

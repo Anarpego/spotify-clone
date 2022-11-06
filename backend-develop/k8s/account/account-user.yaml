@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: account-user
+spec: 
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: account-user
+  template: 
+    metadata:
+      labels:
+        app: account-user
+    spec:
+      containers:
+      - name: account-user-service
+        image: gcr.io/moonlit-bucksaw-347117/account-user
+        ports:
+        - containerPort: 3030
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: account-user
+  labels:
+    app: account-user
+spec: 
+  ports:
+  - port: 3030
+    protocol: TCP
+  selector: 
+    app: account-user

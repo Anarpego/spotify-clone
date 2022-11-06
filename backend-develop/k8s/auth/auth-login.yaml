@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: auth-login
+spec: 
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: auth-login
+  template: 
+    metadata:
+      labels:
+        app: auth-login
+    spec:
+      containers:
+      - name: auth-login-service
+        image: gcr.io/moonlit-bucksaw-347117/auth-login
+        ports:
+        - containerPort: 3011
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: auth-login
+  labels:
+    app: auth-login
+spec: 
+  ports:
+  - port: 3011
+    protocol: TCP
+  selector: 
+    app: auth-login

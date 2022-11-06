@@ -1,0 +1,178 @@
+version: '3.1'
+  
+services:
+
+  db:
+    image: [Repositorio de GCR para la imagen de mysql_infra] 
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: 'S2_2022'
+      MYSQL_PASSWORD: 'S2_2022'
+      MYSQL_DATABASE: 'SoundStream'
+    expose:
+      - '3306'
+    volumes:
+      - 'my-db:/var/lib/mysql'
+    networks:
+      - infra-network
+  
+  account-subscription:
+    depends_on:
+      - db
+    image: account-subscription
+    restart: always
+    ports:
+      - '3031:3031'
+    env_file:
+      - '../servicios/account/subscription/.env'
+    networks:
+      - infra-network
+  
+  account-user:
+    depends_on:
+      - db
+    image: account-user
+    restart: always
+    ports:
+      - '3030:3030'
+    env_file:
+      - '../servicios/account/user/.env'
+    networks:
+      - infra-network
+  
+  account:
+    build:
+      dockerfile: Dockerfile
+      context: ../servicios/account/account-gateway
+    restart: always
+    ports:
+      - '3032:3032'
+    volumes:
+      - /app/node_modules
+      - ./account:/app
+    networks:
+      - infra-network
+
+  streaming-album:
+    depends_on:
+      - db
+      - redis
+    image: streaming-album
+    restart: always
+    ports:
+      - '3002:3002'
+    networks:
+      - infra-network
+  
+  streaming-song:
+    depends_on:
+      - db
+      - redis
+    image: streaming-song
+    restart: always
+    ports:
+      - '3001:3001'
+    networks:
+      - infra-network
+
+  streaming:
+    build:
+      dockerfile: Dockerfile
+      context: ../servicios/streaming/gateway
+    restart: always
+    ports:
+      - '3005:3005'
+    volumes:
+      - /app/node_modules
+      - ./auth:/app
+    networks:
+      - infra-network
+
+  auth-login:
+    depends_on:
+      - db
+    image: auth-login
+    restart: always
+    ports:
+      - '3011:3011'
+    env_file:
+      - '../servicios/auth/login/.env'
+    networks:
+      - infra-network
+
+  auth-register:
+    depends_on:
+      - db
+    image: auth-register
+    restart: always
+    ports:
+      - '3012:3012'
+    env_file:
+      - '../servicios/auth/register/.env'
+    networks:
+      - infra-network
+
+  auth:
+    build:
+      dockerfile: Dockerfile
+      context: ../servicios/auth/gateway-auth
+    restart: always
+    ports:
+      - '3013:3013'
+    volumes:
+      - /app/node_modules
+      - ./auth:/app
+    networks:
+      - infra-network
+  
+  nginx:
+    depends_on:
+      - auth
+      - account
+      - streaming
+      - frontend
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./proxy
+    ports:
+      - '80:80'
+    networks:
+      - infra-network
+  
+  redis:
+    build:
+      dockerfile: Dockerfile
+      context: ./Redis
+    ports:
+      - '6379:6379'
+    volumes: 
+      - cache:/data
+    networks:
+      - infra-network
+  frontend:
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    build:
+      dockerfile: Dockerfile
+      context: ../frontend/react-source
+    volumes:
+      - /app/node_modules
+      - ./frontend:/app
+    networks:
+      - infra-network
+    
+
+volumes:
+  my-db:
+  cache:
+
+networks:
+  infra-network:
+    driver: bridge
+    ipam:
+      driver: default

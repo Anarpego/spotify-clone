@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: streaming-song
+spec: 
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: streaming-song
+  template: 
+    metadata:
+      labels:
+        app: streaming-song
+    spec:
+      containers:
+      - name: streaming-song-service
+        image: [Imagen de gcp container registry]
+        ports:
+        - containerPort: 3001
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: streaming-song
+  labels:
+    app: streaming-song
+spec: 
+  ports:
+  - port: 3001
+    protocol: TCP
+  selector: 
+    app: streaming-song
