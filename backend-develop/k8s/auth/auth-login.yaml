@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: auth-login-service
-        image: gcr.io/moonlit-bucksaw-347117/auth-login
+        image: [Nueva I¿imagen en gcp container registry]
         ports:
         - containerPort: 3011
 ---
