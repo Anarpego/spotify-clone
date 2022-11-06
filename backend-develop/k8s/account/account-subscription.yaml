@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: account-subscription-service
-        image: gcr.io/moonlit-bucksaw-347117/account-subscription
+        image: [Imagen en gcp container registry]
         ports:
         - containerPort: 3031
 ---
