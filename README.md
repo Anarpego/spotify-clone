@@ -36,13 +36,11 @@ Hecho en react se desplegara en Google App Engine
 
 Actualmente hay un microservicio de streaming para la lectura de los álbumes  y las canciones con su respectivo gateway que en este caso se levanta gracias a npm. Se espera desplegar al finalizar los microservicios restantes en Google Kubernetes Engine.
 
-Cuando se despligue a kubernetes el gateway pasara a ser un ingress con el helm chart de Ingress-Nginx (https://artifacthub.io/packages/helm/ingress-nginx/ingress-nginx) que generara un load balancer y solo tendra una IP ya que servira como proxy inverso tomando todos nuestros servicios internos y exponiendolos.
-
 ---
 
 ¿ Por qué se esta desplegando la base de datos y no se usaron contenedores sidecar con cloud sql proxy? por temas de tiempo creimos que era mejor decisión hacer esto de desplegar la base de datos en kubernetes que no es considerada buena practica pero cumple su función como proyecto de universidad.
 
-En la carpeta backend se encuentran los yamls para la creacion de los servicios, se esta considerando usar ArgoCD para la creacion de todos los servicios y para el futuro bastion de Keycloack aunque keycloack todavia no esta implementado en nada.
+En la carpeta backend se encuentran los yamls para la creacion de los servicios y las configuraciones como la del proxy, se esta considerando usar ArgoCD para la creación de todos los servicios y para el futuro bastion de Keycloack aunque keycloack todavia no esta implementado en nada, la unica implementación para la autenticación es JTW actualmente.
 
 En el directorio Backend esta el Docker Compose para levantar toda la infraestructura del backend.
 
