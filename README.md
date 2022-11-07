@@ -46,7 +46,7 @@ En el directorio Backend esta el Docker Compose para levantar toda la infraestru
 
 ---
 
-## Pruebas - Anibal y José
+## Pruebas Realizadas
 
 > Capturas de las pruebas realizadas mostrando el funcionamiento de la aplicación con sus microservicios.
 
