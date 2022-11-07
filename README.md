@@ -44,6 +44,24 @@ En la carpeta backend se encuentran los yamls para la creacion de los servicios 
 
 En el directorio Backend esta el Docker Compose para levantar toda la infraestructura del backend.
 
+---
+
+## Pruebas - Anibal y José
+
+> Capturas de las pruebas realizadas mostrando el funcionamiento de la aplicación con sus microservicios.
+
+Vista general del perfil
+
+![test1](https://user-images.githubusercontent.com/90074254/200213510-f67dc545-3e74-4b67-bbb5-4ea2c5bcd5b2.jpeg)
+
+Editor del perfil con el tipo de plan que tiene activo
+
+![test2](https://user-images.githubusercontent.com/90074254/200213604-a1642cbd-6430-41e0-8c7d-0a4e9b8b74c5.jpeg)
+
+Radio del usuario
+
+![test3](https://user-images.githubusercontent.com/90074254/200213672-5c2a0e9f-569d-4e8f-b24b-b8fab6810666.jpeg)
+
 
 
 
